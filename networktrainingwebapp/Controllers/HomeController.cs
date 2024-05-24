@@ -64,7 +64,12 @@ namespace networktrainingwebapp.Controllers
 
             foreach (var data in myData)
             {
-                myDataList.Add(new MyData { PartitionKey = data.PartitionKey, RowKey = data.RowKey, Timestamp = data.Timestamp });
+                myDataList.Add(new MyData
+                {
+                    PartitionKey = data.PartitionKey,
+                    RowKey = data.RowKey,
+                    Timestamp = data.Timestamp
+                });
             }
         }
     }
