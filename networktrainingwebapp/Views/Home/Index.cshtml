@@ -9,20 +9,29 @@
 </div>
 
 @{
-  <table class="table table-striped table-bordered table-hover" id="data-table">
-    <thead>
-      <tr>
-        <th>MyData</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var r in Model.MyDataList)
-      {
+  @if (Model.MyDataList?.Count == 0)
+  {
+    <div class="alert alert-info" role="alert">
+      No data found.
+    </div>
+  }
+  else
+  {
+    <table class="table table-striped table-bordered table-hover" id="data-table">
+      <thead>
         <tr>
-          <td>@r.PartitionKey</td>
-          <td>@r.RowKey</td>
+          <th>MyData</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @foreach (var r in Model.MyDataList)
+        {
+          <tr>
+            <td>@r.PartitionKey</td>
+            <td>@r.RowKey</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 }

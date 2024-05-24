@@ -40,7 +40,8 @@ namespace networktrainingwebapp.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            var connectionString = Configuration["AZURE_STORAGETABLE_CONNECTIONSTRING"];
+            return View(new HomeViewModel { ConnectionString = connectionString});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
