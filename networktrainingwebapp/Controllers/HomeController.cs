@@ -40,8 +40,7 @@ namespace networktrainingwebapp.Controllers
 
         public IActionResult Privacy()
         {
-            var connectionString = Configuration["AZURE_STORAGETABLE_CONNECTIONSTRING"];
-            return View(new HomeViewModel { ConnectionString = connectionString});
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -65,7 +64,7 @@ namespace networktrainingwebapp.Controllers
 
             foreach (var data in myData)
             {
-                myDataList.Add(data);
+                myDataList.Add(new MyData { PartitionKey = data.PartitionKey, RowKey = data.RowKey, Timestamp = data.Timestamp });
             }
         }
     }
@@ -75,6 +74,6 @@ namespace networktrainingwebapp.Controllers
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
         public DateTimeOffset? Timestamp { get; set; }
-        public ETag ETag { get; set; }
+        public ETag? ETag { get; set; }
     }
 }
