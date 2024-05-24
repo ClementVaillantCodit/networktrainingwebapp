@@ -250,5 +250,4 @@ ModelManifest.xml
 *.old
 *.jfm
 **/local.settings.json
-**/appsettings.json
 **/*output.json
