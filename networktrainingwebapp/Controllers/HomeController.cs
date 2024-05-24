@@ -26,13 +26,12 @@ namespace networktrainingwebapp.Controllers
                 // Replace the following code with your actual implementation
                 LoadDataFromTableStorage();
             }
-            catch (RequestFailedException e)
+            catch (Exception e)
             {
-                _logger.LogError(e, "Error while loading data from table storage");
                 return View(new ErrorViewModel
                 {
                     RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                    ErrorMessage = e.Message
+                    ErrorMessage = $"{e.Message}{Environment.NewLine}{e.InnerException}"
                 });
             }
             return View(new HomeViewModel { MyDataList = myDataList });
