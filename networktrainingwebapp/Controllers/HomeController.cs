@@ -1,3 +1,5 @@
+using Azure;
+using Azure.Data.Tables;
 using Microsoft.AspNetCore.Mvc;
 using networktrainingwebapp.Models;
 using System.Diagnostics;
@@ -6,16 +8,23 @@ namespace networktrainingwebapp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration Configuration;
         private readonly ILogger<HomeController> _logger;
+        private readonly List<MyData> myDataList = new();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            Configuration = configuration;
         }
 
         public IActionResult Index()
         {
-            return View();
+            // Load data from table storage and store it in myDataList
+            // Replace the following code with your actual implementation
+            LoadDataFromTableStorage();
+
+            return View(new HomeViewModel { MyDataList = myDataList });
         }
 
         public IActionResult Privacy()
@@ -28,5 +37,32 @@ namespace networktrainingwebapp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        private void LoadDataFromTableStorage()
+        {
+            var connectionString = Configuration["AZURE_STORAGETABLE_CONNECTIONSTRING"];
+            TableServiceClient tableServiceClient = new(connectionString);
+
+            var tableClient = tableServiceClient.GetTableClient("somedata");
+            var myData = tableClient.Query<MyData>();
+
+            foreach (var data in myData)
+            {
+                myDataList.Add(data);
+            }
+        }
+    }
+
+    public class MyData : ITableEntity
+    {
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
     }
 }
