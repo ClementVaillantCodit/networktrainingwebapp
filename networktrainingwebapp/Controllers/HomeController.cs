@@ -20,10 +20,21 @@ namespace networktrainingwebapp.Controllers
 
         public IActionResult Index()
         {
-            // Load data from table storage and store it in myDataList
-            // Replace the following code with your actual implementation
-            LoadDataFromTableStorage();
-
+            try
+            {
+                // Load data from table storage and store it in myDataList
+                // Replace the following code with your actual implementation
+                LoadDataFromTableStorage();
+            }
+            catch (RequestFailedException e)
+            {
+                _logger.LogError(e, "Error while loading data from table storage");
+                return View(new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                    ErrorMessage = e.Message
+                });
+            }
             return View(new HomeViewModel { MyDataList = myDataList });
         }
 
