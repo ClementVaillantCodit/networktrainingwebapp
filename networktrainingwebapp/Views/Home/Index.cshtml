@@ -10,19 +10,19 @@
 
 @{
   <table class="table table-striped table-bordered table-hover" id="data-table">
-    <thead>
-      <tr>
-        <th>MyData</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var r in Model.MyDataList)
-      {
+      <thead>
         <tr>
+        <th>MyData</th>
+    </tr>
+    </thead>
+      <tbody>
+      @foreach (var r in Model.MyDataList)
+        {
+          <tr>
           <td>@r.PartitionKey</td>
           <td>@r.RowKey</td>
-        </tr>
-      }
-    </tbody>
+      </tr>
+    }
+  </tbody>
   </table>
 }

@@ -24,7 +24,7 @@ namespace networktrainingwebapp.Controllers
             {
                 // Load data from table storage and store it in myDataList
                 // Replace the following code with your actual implementation
-                LoadDataFromTableStorage();
+                //LoadDataFromTableStorage();
             }
             catch (Exception e)
             {
