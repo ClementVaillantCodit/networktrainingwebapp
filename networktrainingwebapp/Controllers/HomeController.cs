@@ -34,6 +34,7 @@ namespace networktrainingwebapp.Controllers
                     ErrorMessage = $"{e.Message}{Environment.NewLine}{e.InnerException}"
                 });
             }
+
             return View(new HomeViewModel { MyDataList = myDataList });
         }
 
