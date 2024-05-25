@@ -72,6 +72,25 @@ namespace networktrainingwebapp.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public IActionResult AddData(string partitionKey, string rowKey)
+        {
+            var connectionString = Configuration["AZURE_STORAGETABLE_CONNECTIONSTRING"];
+            TableServiceClient tableServiceClient = new(connectionString);
+
+            var tableClient = tableServiceClient.GetTableClient("somedata");
+            var myData = new MyData
+            {
+                PartitionKey = partitionKey,
+                RowKey = rowKey,
+                Timestamp = DateTimeOffset.Now
+            };
+
+            tableClient.AddEntity(myData);
+
+            return RedirectToAction("Index");
+        }
     }
 
     public class MyData : ITableEntity

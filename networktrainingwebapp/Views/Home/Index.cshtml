@@ -8,21 +8,32 @@
   <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@{
-  <table class="table table-striped table-bordered table-hover" id="data-table">
-      <thead>
+<table class="table table-striped table-bordered table-hover" id="data-table">
+    <thead>
         <tr>
-        <th>MyData</th>
-    </tr>
+            <th>MyData</th>
+        </tr>
     </thead>
-      <tbody>
-      @foreach (var r in Model.MyDataList)
+    <tbody>
+        @foreach (var r in Model.MyDataList)
         {
-          <tr>
-          <td>@r.PartitionKey</td>
-          <td>@r.RowKey</td>
-      </tr>
-    }
-  </tbody>
-  </table>
+            <tr>
+                <td>@r.PartitionKey</td>
+                <td>@r.RowKey</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using (Html.BeginForm("AddData", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="PartitionKey">Partition Key:</label>
+        <input type="text" name="PartitionKey" id="PartitionKey" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="RowKey">Row Key:</label>
+        <input type="text" name="RowKey" id="RowKey" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 }
